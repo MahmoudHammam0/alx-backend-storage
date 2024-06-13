@@ -8,7 +8,6 @@ CREATE PROCEDURE ComputeAverageScoreForUser(
 BEGIN
         DECLARE projects_num INT;
         DECLARE score_sum INT;
-        DECLARE avgscore DECIMAL;
 
         SELECT COUNT(project_id) 
 		INTO projects_num 
@@ -19,13 +18,9 @@ BEGIN
 		FROM corrections
 		WHERE corrections.user_id = user_id;
 
-        IF projects_num > 0 THEN
-                SET avgscore = score_sum / projects_num;
-        ELSE
-                SET avgscore = 0;
-        END IF;
-
-        UPDATE users SET average_score = avgscore WHERE id = user_id;
+	UPDATE users
+		SET users.average_score = IF(projects_num = 0, 0, score_sum / projects_num)
+		WHERE users.id = user_id;
 END;
 
 //
