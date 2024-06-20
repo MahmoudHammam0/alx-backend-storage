@@ -25,6 +25,7 @@ def url_access(method):
         return content
     return wrapper_func
 
+
 @url_access
 def get_page(url: str) -> str:
     """ track how many times a particular URL was accessed """
