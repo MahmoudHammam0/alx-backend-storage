@@ -34,7 +34,7 @@ def call_history(method: Callable) -> Callable:
     return wrapper_func
 
 
-def replay(fn: Callable) -> Callable:
+def replay(fn: Callable):
     """ display the history of calls of a particular function. """
     redis = redis.Redis()
     name = fn.__qualname__
