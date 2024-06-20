@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-""" Implementing an expiring web cache and tracker """
+""" expiring web cache module """
+
 import redis
 import requests
+from typing import Callable
 from functools import wraps
 
-r = redis.Redis()
+redis = redis.Redis()
 
 
 def wrap_requests(fn: Callable) -> Callable:
