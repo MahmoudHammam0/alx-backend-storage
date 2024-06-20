@@ -10,7 +10,7 @@ r = redis.Redis()
 def url_access(method):
     """ count the access on the url """
     @wraps(method)
-    def wrappe_funcr(url):
+    def wrapper_func(url):
         """ wrapper function for url access"""
         key = "cached:" + url
         value = r.get(key)
