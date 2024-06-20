@@ -36,9 +36,9 @@ def call_history(method: Callable) -> Callable:
 
 def replay(fn: Callable):
     """display the history of calls of a particular function"""
-    redis = redis.Redis()
+    r = redis.Redis()
     name = fn.__qualname__
-    value = redis.get(name)
+    value = r.get(name)
     try:
         value = int(value.decode("utf-8"))
     except Exception:
