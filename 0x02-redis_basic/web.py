@@ -10,21 +10,22 @@ r = redis.Redis()
 def url_access(method):
     """ count the access on the url """
     @wraps(method)
-    def wrapper_func(url):
-        """ wrapper function for url access"""
+    def wrapper(url):
+        """wrapper function"""
         key = "cached:" + url
-        value = r.get(key)
-        if value:
-            return value.decode("utf-8")
-        count = "count:" + url
-        content = method(url)
+        cached_value = r.get(key)
+        if cached_value:
+            return cached_value.decode("utf-8")
 
-        r.incr(count)
-        r.set(key, content, ex=10)
+            # Get new content and update cache
+        key_count = "count:" + url
+        html_content = method(url)
+
+        r.incr(key_count)
+        r.set(key, html_content, ex=10)
         r.expire(key, 10)
-        return content
-    return wrapper_func
-
+        return html_content
+    return wrapper
 
 @url_access
 def get_page(url: str) -> str:
