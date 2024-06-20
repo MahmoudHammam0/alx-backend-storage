@@ -18,7 +18,7 @@ def count_calls(method: Callable) -> Callable:
 
     return wrapper_func
 
-def call_history(self, method: Callable) -> Callable:
+def call_history(method: Callable) -> Callable:
     """ add its input parameters to one list in redis """
 
     @wraps(method)
