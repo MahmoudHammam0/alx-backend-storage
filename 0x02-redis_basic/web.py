@@ -28,7 +28,7 @@ def url_access(method):
 
 @url_access
 def get_page(url: str) -> str:
-    """ track how many times a particular URL was accessed in the specific key """
+    """ track how many times a particular URL was accessed in the key """
     res = requests.get(url)
     return res.text
 
